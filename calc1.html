@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>آلة حاسبة</title>
+  <!-- رابط مكتبة Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* تنسيق الآلة الحاسبة */
+    .calculator {
+      margin-top: 60px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 20px;
+      background-color: #000000;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* شاشة الآلة الحاسبة */
+    .calculator-screen {
+      height: 60px;
+      font-size: 30px;
+      text-align: right;
+      padding: 10px;
+      background-color: #eaeaea;
+      border: none;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+
+    /* تصميم الأزرار */
+    .button {
+      font-size: 20px;
+      height: 60px;
+      width: 60px;
+      border-radius: 5px;
+      margin: 5px;
+    }
+
+    /* ألوان الأزرار */
+    .btn-secondary {
+      background-color: #f0f0f0;
+      color: #333;
+    }
+
+    .btn-danger {
+      background-color: #ff4f58;
+      color: #fff;
+    }
+
+    .btn-success {
+      background-color: #28a745;
+      color: #fff;
+    }
+
+    .btn-warning {
+      background-color: #ffc107;
+      color: #333;
+    }
+
+    .w-100 {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand">Calculator</a>
+          <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </div>
+      </nav>
+      <br>
+
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-4 calculator">
+        <!-- شاشة الآلة الحاسبة -->
+        <input type="text" id="screen" class="form-control calculator-screen" disabled>
+        
+        <!-- الأزرار -->
+        <div class="row">
+          <div class="col-3">
+            <button class="btn btn-secondary button" onclick="appendToScreen('7')">7</button>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-secondary button" onclick="appendToScreen('8')">8</button>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-secondary button" onclick="appendToScreen('9')">9</button>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-danger button" onclick="appendToScreen('/')">/</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3">
+            <button class="btn btn-secondary button" onclick="appendToScreen('4')">4</button>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-secondary button" onclick="appendToScreen('5')">5</button>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-secondary button" onclick="appendToScreen('6')">6</button>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-danger button" onclick="appendToScreen('*')">*</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3">
+            <button class="btn btn-secondary button" onclick="appendToScreen('1')">1</button>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-secondary button" onclick="appendToScreen('2')">2</button>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-secondary button" onclick="appendToScreen('3')">3</button>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-danger button" onclick="appendToScreen('-')">-</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3">
+            <button class="btn btn-secondary button" onclick="appendToScreen('0')">0</button>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-secondary button" onclick="appendToScreen('.')">.</button>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-success button" onclick="calculateResult()">=</button>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-danger button" onclick="appendToScreen('+')">+</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <button class="btn btn-warning w-100 button" onclick="clearScreen()">C</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- رابط مكتبة JavaScript الخاصة بـ Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  
+  <script>
+    // إضافة الرقم أو العملية إلى الشاشة
+    function appendToScreen(value) {
+      document.getElementById("screen").value += value;
+    }
+
+    // مسح الشاشة
+    function clearScreen() {
+      document.getElementById("screen").value = "";
+    }
+
+    // حساب النتيجة
+    function calculateResult() {
+      let screenValue = document.getElementById("screen").value;
+      try {
+        document.getElementById("screen").value = eval(screenValue);
+      } catch (e) {
+        document.getElementById("screen").value = "خطأ";
+      }
+    }
+  </script>
+
+</body>
+</html>
